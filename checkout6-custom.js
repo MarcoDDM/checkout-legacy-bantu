@@ -20,6 +20,7 @@
   }
 });*/
 
+
 /* FUNCIONES COMPARTIDAS */
 const commonFunctions = {
   init() {
@@ -99,8 +100,8 @@ const cartFunctions = {
     const itemPrices = $('.cart-items .product-price .best-price');
 
     itemPrices.each(function () {
-      const listPrice = parseFloat($(this).find('.new-product-real-price').text().replace('$', '').replace(",00",""));
-      const bestPrice = parseFloat($(this).find('.new-product-price').text().replace('$', '').replace(",00",""));
+      const listPrice = parseFloat($(this).find('.new-product-real-price').text().replace('$', ''));
+      const bestPrice = parseFloat($(this).find('.new-product-price').text().replace('$', ''));
 
       if (listPrice != bestPrice && $(this).children()[7] == null) {
         const discount = 100 - Math.round((bestPrice * 100) / listPrice);
@@ -161,7 +162,6 @@ const cartFunctions = {
   },
 };
 
-
 /************************* ON DOCUMENT READY *************************/
 $(document).ready(function () {
   commonFunctions.init(); 
@@ -220,9 +220,7 @@ $(document).ready(function () {
      estructuraShipping();
     }, 1000);
   });
-  $("input#cart-coupon.coupon-value.input-small").text("placeholder", "");
-  $("input#cart-coupon.coupon-value.input-small").text("placeholder", "Ejemplo: GH0987");
-  
+
 });
 
 /************************* ON HREF CHANGE *************************/
@@ -294,12 +292,13 @@ function estructuraCart(){
     	let precioDecimal2 = nuevoPrecio2.innerText.split(",").shift();
     	nuevoPrecio2.innerText = precioDecimal2;
 	});
-    
+  $("input#cart-coupon.coupon-value.input-small").attr("placeholder", "");
+  $("input#cart-coupon.coupon-value.input-small").attr("placeholder", "Ejemplo: GH0987");
 }
 
 /* Reestructura Profile/Email */
 function estructuraProfile(){
-	$(".header-mid").css("visibility","visible");
+		$(".header-mid").css("visibility","visible");
         $(".numero-paso.1").css("background","#990606");
 		$(".numero-paso.1").css("color","white");
         $(".numero-paso.2").css("background","#F7A41D");
@@ -336,9 +335,10 @@ function estructuraProfile(){
 		$("#go-to-payment").click(function() {
         	corporateInfo();              
         });
+		$("input#cart-coupon.coupon-value.input-small").attr("placeholder", "Ejemplo: GH0987");
 }
 
-/* Reestructura Shipping */                                                             
+/* Reestructura Shipping */                                                           
 function estructuraShipping(){
         $(".header-mid").css("visibility","visible");
         $(".numero-paso.1").css("background","#990606");
@@ -388,6 +388,7 @@ function estructuraShipping(){
 		document.querySelector("#shipping-data > div > div.accordion-inner.shipping-container > div > div.vtex-omnishipping-1-x-addressForm > div.vtex-omnishipping-1-x-addressSummary.vtex-omnishipping-1-x-addressSummaryActive > div.input.ship-notApplicable.required.text > p.input.ship-checkboxNumberLabel.text > #ship-number").setAttribute("class","input-numero");
         document.querySelector("#shipping-data > div > div.accordion-inner.shipping-container > div > div.vtex-omnishipping-1-x-addressForm > div.vtex-omnishipping-1-x-address > div > p.input.ship-receiverName.required.text > div.contenedor-nombre > #ship-receiverName").setAttribute("placeholder","Ejemplo Martin");
    }
+   //Funcion que reestructura la data del producto
    reestructuraItemCartEnShipping();
    //Focus en numero de direccion
   if(document.querySelector("input#ship-number") != null){
@@ -435,6 +436,11 @@ function estructuraShipping(){
    	}
    });
   }
+  //Si recoger en tienda esta activo, cambiar estetica producto
+  if($("button#shipping-option-pickup-in-point").hasClass("vtex-omnishipping-1-x-deliveryOptionActive")){
+  	reestructuraItemCartEnShipping(); 
+  }
+  $("input#cart-coupon.coupon-value.input-small").attr("placeholder", "Ejemplo: GH0987");
 }
                                                                            
 function estructuraPayment(){
@@ -515,6 +521,7 @@ function estructuraPayment(){
 			$("a#payment-group-customPrivate_501PaymentGroup").append(contenedor);
       	}
     }
+    $("input#cart-coupon.coupon-value.input-small").attr("placeholder", "Ejemplo: GH0987");
 }
  
 $("a#edit-profile-data").click(function (event) {
@@ -761,22 +768,25 @@ window.onload = function () {
     };
         
     $(window).on('orderFormUpdated.vtex', (evt, orderForm) => {
-      console.log("evt")
-      console.log("orderForm")
-      console.log(evt)
-      console.log(orderForm)
       $(".item-quantity-change-decrement").on("click", () => {
         let products = [];
         orderForm.items.forEach(item => {
-          products.push({
+          const difference = Math.abs(item.price - item.sellingPrice);
+          const discount = `${(difference / item.price) * 100}%`;
+      	  products.push({
             brand: item.additionalInfo?.brandName,
             id: item.id,
-            category: getCategory(item.productCategoryIds, item.productCategories),
+            category: getCategory(
+              item.productCategoryIds,
+              item.productCategories
+            ),
             name: item.name,
-            price: item.price,
+            listPrice: item.price / 100,
+            price: item.sellingPrice / 100,
             quantity: 1,
-            variant: item.skuName
-          })
+            variant: item.skuName,
+            discount,
+          });
         })
         push({
           ecommerce: {
@@ -792,16 +802,23 @@ window.onload = function () {
       $(".item-quantity-change-increment").on("click", () => {
         let products = [];
         orderForm.items.forEach(item => {
-          products.push({
-            brand: item.additionalInfo?.brandName,
-            id: item.id,
-            category: getCategory(item.productCategoryIds, item.productCategories),
-            name: item.name,
-            price: item.price,
-            quantity: 1,
-            variant: item.skuName
-          })
-        })
+           const difference = Math.abs(item.price - item.sellingPrice);
+           const discount = `${(difference / item.price) * 100}%`;
+           products.push({
+              brand: item.additionalInfo?.brandName,
+              id: item.id,
+              category: getCategory(
+                item.productCategoryIds,
+                item.productCategories
+              ),
+              name: item.name,
+              listPrice: item.price / 100,
+              price: item.sellingPrice / 100,
+              quantity: 1,
+              variant: item.skuName,
+              discount,
+           });
+        });	
         push({
           ecommerce: {
             currencyCode: orderForm.storePreferencesData.currencyCode,
@@ -813,5 +830,14 @@ window.onload = function () {
         });
       })
     });
-  
+
+
+
+    function emptyCartH3() {
+      var newH3 = document.getElementById("empty-cart-content");
+      newH3.querySelector("empty-cart-title").innerHTML = "Tu carro está vacío";
+    };
+    
+    emptyCartH3();
+
 };
