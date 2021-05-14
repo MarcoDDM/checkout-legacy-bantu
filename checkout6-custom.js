@@ -83,8 +83,8 @@ const cartFunctions = {
       const bestPrice = parseFloat($(this).find('.new-product-price').text().replace('$', '').replace(',00', '').replace('.', ''));
       if (listPrice != bestPrice && $(this).children()[7] == null) {
         const discount = 100 - Math.round((bestPrice * 100) / listPrice);
-        $(this).append(`<p class="discount-percentage">${discount} %</p>`);
-        $(this).append(`<img class="discount-cencosud" src="/arquivos/cencosud-icono.png" />`);
+  		$(this).append(`<img class="discount-cencosud" src="/arquivos/cencosud-icono.png" />`);
+        $(this).append(`<p class="discount-percentage">${-discount} %</p>`);
       }
     });
   },
@@ -503,6 +503,7 @@ function estructuraPayment() {
     }
   }
   $("input#cart-coupon.coupon-value.input-small").attr("placeholder", "Ejemplo: GH0987");
+  $("#cart-to-orderform").css("display","none")
 }
 
 $("a#edit-profile-data").click(function (event) {
