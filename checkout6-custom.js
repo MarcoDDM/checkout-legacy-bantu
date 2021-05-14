@@ -733,8 +733,16 @@ window.onload = function () {
       /*Create new checkout event from the old one */
       let newEvent = {};
       for (i = window.dataLayer.length; i >= 0; i--) {
-        if (window.dataLayer[i]?.event === checkoutSteps[hash][1]) {
+        if (
+          ["cart", "email", "profile", "shipping", "payment"].includes(
+            window.dataLayer[i]?.event
+          )
+        ) {
           newEvent = { ...window.dataLayer[i] };
+          newEvent.ecommerce.checkout.actionField = {
+            step: checkoutSteps[hash][0],
+            actionField: "checkout",
+          };
           break;
         }
       }
