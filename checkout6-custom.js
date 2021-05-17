@@ -288,14 +288,14 @@ function estructuraProfile() {
   $(".numero-paso.3").css("color", "black");
   $(".numero-paso.4").css("background", "#F2F2F2");
   $(".numero-paso.4").css("color", "black");
-  $("input#client-first-name").attr("placeholder", "Ejemplo Manuel");
-  $("input#client-last-name").attr("placeholder", "Ejemplo Gonzales");
-  $("input#client-email").attr("placeholder", "Ejemplo correo@gmail.com");
-  $("input#client-document").attr("placeholder", "Ejemplo 11.111.111-1");
-  $("input#client-phone").attr("placeholder", "Ejemplo 12345678");
-  $("input#client-company-trade").attr("placeholder", "Ejemplo Easy");
-  $("input#client-company-name").attr("placeholder", "Ejemplo Mi empresa limitada");
-  $("input#client-company-document").attr("placeholder", "Ejemplo 11.111.111-1");
+  $("input#client-first-name").attr("placeholder", "Ejemplo: Manuel");
+  $("input#client-last-name").attr("placeholder", "Ejemplo: Gonzales");
+  $("input#client-email").attr("placeholder", "Ejemplo: correo@gmail.com");
+  $("input#client-document").attr("placeholder", "Ejemplo: 11.111.111-1");
+  $("input#client-phone").attr("placeholder", "Ejemplo: 12345678");
+  $("input#client-company-trade").attr("placeholder", "Ejemplo: Easy");
+  $("input#client-company-name").attr("placeholder", "Ejemplo: Mi empresa limitada");
+  $("input#client-company-document").attr("placeholder", "Ejemplo: 11.111.111-1");
   /* Decimales */
   setTimeout(() => {
     document.querySelector(".orderform-template .cart-template.mini-cart .summary-totalizers tfoot tr td.monetary").innerText = document.querySelector(".orderform-template .cart-template.mini-cart .summary-totalizers tfoot tr td.monetary").innerText.split(",")[0];
@@ -341,7 +341,7 @@ function estructuraShipping() {
   }, 2000);
   /* Decimales */
   if ($("div#shipping-data .step.accordion-group.shipping-data").hasClass("active") && document.querySelector("#shipping-data > div > div.accordion-inner.shipping-container > div > div.vtex-omnishipping-1-x-addressForm > div.vtex-omnishipping-1-x-address > div > div") != null) {
-    $("input#ship-number").attr("placeholder", "Ejemplo 1234");
+    $("input#ship-number").attr("placeholder", "Ejemplo: 1234");
     $("input#ship-addressQuery").attr("placeholder", "Ejemplo: Los Militares, 6191, Santiago");
     let numero = document.querySelector(".input.ship-notApplicable.required.text").innerHTML;
     let piso = document.querySelector("p.input.ship-complement.text").innerHTML;
@@ -353,7 +353,7 @@ function estructuraShipping() {
     apellido.setAttribute("id", "ship-receiverLastName");
     apellido.setAttribute("data-hj-whitelist", "on");
     apellido.setAttribute("autocomplete", "on");
-    apellido.setAttribute("placeholder", "Ejemplo Rodriguez");
+    apellido.setAttribute("placeholder", "Ejemplo: Rodriguez");
     apellido.setAttribute("type", "text");
     let contenedorApellido = document.createElement("div");
     let inputApellido = "<label for='ship-receiverLastName'>Apellido</label>";
@@ -367,7 +367,7 @@ function estructuraShipping() {
     $(".contenedor-apellido").append(apellido);
     document.querySelector("#shipping-data > div > div.accordion-inner.shipping-container > div > div.vtex-omnishipping-1-x-addressForm > div.vtex-omnishipping-1-x-addressSummary.vtex-omnishipping-1-x-addressSummaryActive > div.input.ship-notApplicable.required.text > p.input.ship-checkboxNumberLabel.text > label").innerText = "Mi direccion es sin numero";
     document.querySelector("#shipping-data > div > div.accordion-inner.shipping-container > div > div.vtex-omnishipping-1-x-addressForm > div.vtex-omnishipping-1-x-addressSummary.vtex-omnishipping-1-x-addressSummaryActive > div.input.ship-notApplicable.required.text > p.input.ship-checkboxNumberLabel.text > #ship-number").setAttribute("class", "input-numero");
-    document.querySelector("#shipping-data > div > div.accordion-inner.shipping-container > div > div.vtex-omnishipping-1-x-addressForm > div.vtex-omnishipping-1-x-address > div > p.input.ship-receiverName.required.text > div.contenedor-nombre > #ship-receiverName").setAttribute("placeholder", "Ejemplo Martin");
+    document.querySelector("#shipping-data > div > div.accordion-inner.shipping-container > div > div.vtex-omnishipping-1-x-addressForm > div.vtex-omnishipping-1-x-address > div > p.input.ship-receiverName.required.text > div.contenedor-nombre > #ship-receiverName").setAttribute("placeholder", "Ejemplo: Martin");
   }
   //Funcion que reestructura la data del producto
   reestructuraItemCartEnShipping();
