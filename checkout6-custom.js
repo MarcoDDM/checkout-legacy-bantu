@@ -293,7 +293,7 @@ function estructuraProfile() {
   $("input#client-email").attr("placeholder", "Ejemplo: correo@gmail.com");
   $("input#client-document").attr("placeholder", "Ejemplo: 11.111.111-1");
   $("input#client-phone").attr("placeholder", "Ejemplo: 12345678");
-  $("input#client-company-trade").attr("placeholder", "Ejemplo: Easy");
+  $("input#client-company-nickname").attr("placeholder", "Ejemplo: Easy");
   $("input#client-company-name").attr("placeholder", "Ejemplo: Mi empresa limitada");
   $("input#client-company-document").attr("placeholder", "Ejemplo: 11.111.111-1");
   /* Decimales */
